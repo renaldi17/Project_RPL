@@ -44,35 +44,32 @@
     <div class="page-section">
     <div class="container">
     <h1 class="text-center wow fadeInUp">Forum Diskusi</h1>
+    <h1 class="text-center wow fadeInUp">{{$diskusi->judul}}</h1>
 
     <a href="/diskusi" class="btn btn-secondary">Kembali ke Diskusi</a>
 
-    <div class="discussion-container">
-        <div class="discussion-bubble-master">
-        <div class="bubble-content">
-            <p class="bubble-text text-white">Pertanyaan 1</p>
-            <p class="bubble-info text-white">John Doe - October 15, 2022</p>
-        </div>
-        </div>
-        <div class="discussion-bubble">
-        <div class="bubble-content">
-            <p class="bubble-text text-white">Jawaban</p>
-            <p class="bubble-info text-white">
-            Dr. Satriatama Putra - October 16, 2022
-            </p>
-        </div>
-        </div>
+    <div class="discussion-container messages">
+        @foreach ($messages as $message)
+            <div class="message"></div>
+            @include('broadcast', ['message' => $message])
+        @endforeach
         <!-- Add more discussion bubbles here -->
     </div>
 
     <form class="comment-form">
-        <div class="form-group">
+        <input
+            type="hidden"
+            id="diskusi_id" 
+            name="diskusi_id"
+            value="{{ $diskusi->id }}"
+        />
         <textarea
             class="form-control"
             rows="3"
             placeholder="Tambahkan komentar"
+            id="message" 
+            name="message"
         ></textarea>
-        </div>
         <button type="submit" class="btn btn-primary">Kirim</button>
     </form>
     </div>
@@ -84,5 +81,49 @@
     <img src="../assets/img/banner.png" alt="Banner" />
     </div>
     <!-- .banner-home -->
+    <script>
+        Pusher.logToConsole = true;
 
+        const pusher  = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: 'ap1'});
+        const channel = pusher.subscribe('chat.{{$diskusi->id}}');
+        $(".messages").animate({scrollTop: $('.messages .message:last').offset().top}, 1000);
+        //Receive messages
+        
+        channel.bind('chat', function (data) {
+            console.log(data)
+            $.post("/receive", {
+            _token:  '{{csrf_token()}}',
+            message: data.chat,
+            })
+            .done(function (res) {
+                $(".messages > .message").last().after(res);
+                $(".messages").animate({scrollTop: $('.messages #{{$diskusi->id}}:last').offset().top}, 1000);
+            });
+        });
+
+        //Broadcast messages
+        $("form").submit(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+            url:     "/broadcast",
+            method:  'POST',
+            headers: {
+                'X-Socket-Id': pusher.connection.socket_id
+            },
+            data:    {
+                _token:  '{{csrf_token()}}',
+                diskusi_id: '{{$diskusi->id}}',
+                message: $("form #message").val(),
+            }
+            }).done(function (res) {
+                $(".messages > .message").last().after(res);
+                $("form #message").val('');
+                // Check if the element exists
+                $(".messages").animate({scrollTop: $('.messages #{{$diskusi->id}}:last').offset().top}, 1000);
+
+            });
+        });
+
+    </script>
 @endsection

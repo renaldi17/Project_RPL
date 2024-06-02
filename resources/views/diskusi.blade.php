@@ -54,11 +54,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><a href="/forum_diskusi">Pertanyaan 1</a></td>
-            <td>John Doe</td>
-            <td>October 15, 2022</td>
-        </tr>
+        @foreach ($rooms as $room)
+            <tr>
+                <td><a href="/forum_diskusi/{{$room->id}}">{{ $room->judul }}</a></td>
+                <td>{{ $room->created_by_name }}</td>
+                <td>{{ $room->created_at }}</td>
+            </tr>
+        @endforeach
         <!-- Add more rows for additional discussions -->
         </tbody>
     </table>
@@ -82,34 +84,30 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="createTopicModalLabel">
-                Buat Topik Baru
-            </h5>
-            <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-            >
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            <input
-                type="text"
-                class="form-control"
-                placeholder="Judul Topik"
-            />
-            </div>
-            <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-            >
-                Tutup
-            </button>
-            <button type="button" class="btn btn-primary">Simpan</button>
+                <form action="{{ route('make_room') }}" method="post">
+                    @csrf
+                    <h5 class="modal-title" id="createTopicModalLabel">
+                        Buat Topik Baru
+                    </h5>
+                    </div>
+                    <div class="modal-body">
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="judul"
+                        placeholder="Judul Topik"
+                    />
+                    </div>
+                    <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+                        Tutup
+                    </button>
+                    <button name="submit" type="submit" class="btn btn-primary">Simpan</button>
+                </form>
             </div>
         </div>
         </div>
@@ -123,5 +121,4 @@
     <img src="../assets/img/banner.png" alt="Banner" />
     </div>
     <!-- .banner-home -->
-
 @endsection

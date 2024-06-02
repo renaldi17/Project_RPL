@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 
 Route::get('/janjitemu', function () {
     return view('janjitemu');
@@ -37,22 +39,19 @@ Route::get('/bukudigital', function () {
     return view('bukudigital');
 });
 
-Route::get('/diskusi', function () {
-    return view('diskusi');
-});
-
-Route::get('/forum_diskusi', function () {
-    return view('forum_diskusi');
-});
 
 // AUTH SECTION
 Route::get('/login', function () {
     return view('login');
-});
+})->name('viewLogin');
 
 Route::get('/register', function () {
     return view('register');
-});
+})->name('viewRegister');;
+
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ADMIN PAGE
 Route::get('/dashboard_admin', function () {
@@ -61,7 +60,7 @@ Route::get('/dashboard_admin', function () {
 
 Route::get('/index_admin', function () {
     return view('admin.blog.index');
- });
+ })->name('adminPanel');
 
 Route::get('/create_blog', function () {
    return view('admin.blog.create');
@@ -69,4 +68,14 @@ Route::get('/create_blog', function () {
 
 Route::get('/edit_blog', function () {
     return view('admin.blog.edit');
- });
+});
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/diskusi', [ChatController::class, 'list_diskusi'])->name('diskusi');
+    Route::post('/make_room', [ChatController::class, 'make_room'])->name('make_room');
+    Route::get('/forum_diskusi/{diskusi_id}', [ ChatController::class, 'forum'] );
+    
+    Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
+    Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
+});
+

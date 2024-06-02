@@ -14,6 +14,10 @@
 
     <link rel="stylesheet" href="../assets/css/bootstrap.css" />
 
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     <link
       rel="stylesheet"
       href="../assets/vendor/owl-carousel/css/owl.carousel.css"
@@ -111,5 +115,6 @@
         <script src="../assets/vendor/wow/wow.min.js"></script>
 
         <script src="../assets/js/theme.js"></script>
+        
     </body>
 </html>

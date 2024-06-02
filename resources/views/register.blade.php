@@ -21,7 +21,7 @@
 				</ul>
 			</div>
 		@endif
-        <form action="" method="POST">
+        <form action="{{ route('register') }}" method="POST">
 			@csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -29,7 +29,7 @@
             </div>
             <div class="mb-3">
               <label for="nama" class="form-label">Nama</label>
-              <input type="text" value="{{ old('nama') }}" name="nama" class="form-control">
+              <input type="text" value="{{ old('nama') }}" name="name" class="form-control">
           </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>

@@ -28,9 +28,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/">Beranda</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/janjitemu">Janji Temu</a>
-            </li>
+            @if (auth()->check())
+              <li class="nav-item">
+                <a class="nav-link" href="/janjitemu">Janji Temu</a>
+              </li>
+            @endif
             <li class="nav-item">
               <a class="nav-link" href="/myappointment"
                 >Janji Temu Saya</a
@@ -59,9 +61,22 @@
               </div>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Masuk</a>
-            </li>
+            @guest
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Masuk</a>
+              </li>
+            @else
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"
+                >Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                </form>
+                <!-- <a class="nav-link" href="/login">Logout</a> -->
+              </li>
+            @endguest
 
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard_admin">Dashboard</a>
