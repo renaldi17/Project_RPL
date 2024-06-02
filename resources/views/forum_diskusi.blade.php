@@ -86,7 +86,7 @@
 
         const pusher  = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: 'ap1'});
         const channel = pusher.subscribe('chat.{{$diskusi->id}}');
-        $(".messages").animate({scrollTop: $('.messages .message:last').offset().top}, 1000);
+        // $(".messages").animate({scrollTop: $('.messages .message:last')?.offset()?.top}, 1000);
         //Receive messages
         
         channel.bind('chat', function (data) {
@@ -97,14 +97,13 @@
             })
             .done(function (res) {
                 $(".messages > .message").last().after(res);
-                $(".messages").animate({scrollTop: $('.messages #{{$diskusi->id}}:last').offset().top}, 1000);
+                // $(".messages").animate({scrollTop: $('.messages #{{$diskusi->id}}:last').offset().top}, 1000);
             });
         });
 
         //Broadcast messages
         $("form").submit(function (event) {
             event.preventDefault();
-
             $.ajax({
             url:     "/broadcast",
             method:  'POST',
@@ -120,7 +119,7 @@
                 $(".messages > .message").last().after(res);
                 $("form #message").val('');
                 // Check if the element exists
-                $(".messages").animate({scrollTop: $('.messages #{{$diskusi->id}}:last').offset().top}, 1000);
+                // $(".messages").animate({scrollTop: $('.messages #{{$diskusi->id}}:last').offset().top}, 1000);
 
             });
         });
