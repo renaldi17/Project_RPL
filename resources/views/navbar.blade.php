@@ -14,7 +14,7 @@
                   <li class="nav-item">
                       <a class="nav-link" href="/">Beranda</a>
                   </li>
-                  @if (auth()->check() && (auth()->user()->role == 'pasien' || auth()->user()->role == 'dokter'))
+                  @if (auth()->check() && (auth()->user()->role == 'pasien' ))
                       <li class="nav-item">
                           <a class="nav-link" href="/janjitemu">Janji Temu</a>
                       </li>

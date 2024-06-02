@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('email');
             $table->date('tanggal');
             $table->integer('nomor');
-            $table->enum('status', ['ACC','Pending','Denied']);
+            $table->enum('status', ['ACC','Pending','Denied', 'Cancel']);
             $table->string('pesan');
+            $table->string('created_by');
+            $table->string('created_by_name');
             $table->timestamps();
         });
     }
