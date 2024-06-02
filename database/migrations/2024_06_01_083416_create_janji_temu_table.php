@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->date('tanggal');
-            $table->string('dokter');
             $table->integer('nomor');
+            $table->enum('status', ['ACC','Pending','Denied']);
             $table->string('pesan');
             $table->timestamps();
         });

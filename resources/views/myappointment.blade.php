@@ -52,9 +52,9 @@
             <th scope="col">Nama</th>
             <th scope="col">Email</th>
             <th scope="col">Tanggal</th>
-            <th scope="col">Dokter</th>
             <th scope="col">Nomor</th>
             <th scope="col">Pesan</th>
+            <th scope="col">Status</th>
             <th scope="col">Aksi</th>
         </tr>
         </thead>
@@ -64,9 +64,9 @@
             <td>John Doe</td>
             <td>johndoe@example.com</td>
             <td>2022-10-15</td>
-            <td>Dr. Satriatama Putra</td>
             <td>1234567890</td>
             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+            <td>pending</td>
             <td>
             <button
                 class="btn btn-danger"
@@ -127,11 +127,11 @@
             <td>Jane Smith</td>
             <td>janesmith@example.com</td>
             <td>2022-10-20</td>
-            <td>Dr. Renaldi Pasya</td>
             <td>9876543210</td>
             <td>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
             </td>
+            <td>ACC</td>
             <td>
             <button class="btn btn-danger">Batal</button>
             </td>

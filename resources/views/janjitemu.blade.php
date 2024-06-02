@@ -102,13 +102,6 @@
         >
             <input type="date" class="form-control" />
         </div>
-        <div class="col-12 py-2 wow fadeInRight" data-wow-delay="300ms">
-            <select name="doctor" id="doctor" class="custom-select">
-            <option value="dr1">Dr. Satriatama Putra</option>
-            <option value="cardiology">Dr. Renaldi Pasya</option>
-            <option value="dental">Dr. Fitri Nabilla</option>
-            </select>
-        </div>
         <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
             <input type="text" class="form-control" placeholder="Number.." />
         </div>
