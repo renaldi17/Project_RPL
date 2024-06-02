@@ -49,8 +49,8 @@
     <a href="/diskusi" class="btn btn-secondary">Kembali ke Diskusi</a>
 
     <div class="discussion-container messages">
+        <div id="chat-0002" class="message"></div>
         @foreach ($messages as $message)
-            <div class="message"></div>
             @include('broadcast', ['message' => $message])
         @endforeach
         <!-- Add more discussion bubbles here -->
